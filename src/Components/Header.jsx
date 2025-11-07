@@ -13,7 +13,7 @@ const Header = ({ title, image, type}) => {
             className='w-full h-full object-cover'
             />
         </div>
-        <div className="absolute w-full h-full bg-gradient-to-t from-black to-transparent top-0 z-8 flex flex-col items-center justify-center pt-40 2xl:pt-20 px-4 ">
+        <div className="absolute w-full h-full bg-gradient-to from-black to-transparent top-0 z-8 flex flex-col items-center justify-center pt-40 2xl:pt-20 px-4 ">
             <h1 className='text-white text-4xl md:text-5xl font-bold text-center'>{title}</h1>
            {type && (
             <p className="text-sm mt-4 text-center text-green-500 bg-[#00000090] px-6 rounded-full">Welcome to Recipe Book, your passport to culinary adventures!
