@@ -1,17 +1,26 @@
-import React from 'react'
-import Logo from "../assets/recipe-book-logo.png"
-import { HiMenuAlt3 } from 'react-icons/hi'
-import { AiOutlineClose } from 'react-icons/ai'
-import { NavLink, Link } from 'react-router-dom'
+import React, { useState } from "react";
+import Logo from "../assets/recipe-book-logo.png";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
+import { NavLink, Link } from "react-router-dom";
+import Button from "./Button.jsx";
+import ResponsiveNav from "./ResponsiveNav.jsx";
 
 const NavBar = () => {
-  console.log(Logo)
+  const [open, setOpen] = useState(false);
   return (
-   <header className="w-full fixed z-10 bg-black opacity-90">
-    <nav className="flex w-full py-2 md:py-3 px-4 md:px-20 items-center justify-between">
-        <Link to={"/"} className="flex items-center justify-center text-white text-lg cursor-pointer">
-        <img src={Logo} alt="Logo" />
-        Recipe<span>World</span>
+    <header className="w-full fixed z-10 bg-black opacity-90">
+      <nav className="flex w-full py-2 md:py-3 px-4 md:px-20 items-center justify-between">
+        <Link
+          to={"/"}
+          className="flex items-center justify-center text-white text-lg cursor-pointer"
+        >
+          <img
+            src={Logo}
+            alt="Logo"
+            className=" md:block w-8 h-8 lg:w-14 lg:h-14"
+          />
+          Recipe<span>World</span>
         </Link>
         <ul className="hidden md:flex text-white gap-6">
           <li>
@@ -20,13 +29,25 @@ const NavBar = () => {
           <li>
             <NavLink to={"/recipes/:id"}>Explore Recipes</NavLink>
           </li>
-           <li>
+          <li>
             <NavLink to={"/favorites"}> Favorite</NavLink>
           </li>
         </ul>
-    </nav>
-   </header>
-  )
-}
+        <Button
+          title="Sign in"
+          conteinerStyle='hidden md:block bg-transparent border border-white text-white hover:bg-white hover:text-slate-700 rounded-full min-w-[130px]'
+        />
+        <button
+          className="block md:hidden text-white text-xl"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          {open ? <AiOutlineClose /> : <HiMenuAlt3 />}
+        </button>
+      </nav>
+      {/* responsive nav */}
+      <ResponsiveNav open={open} />
+    </header>
+  );
+};
 
-export default NavBar
+export default NavBar;
