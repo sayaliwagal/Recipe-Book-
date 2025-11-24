@@ -1,33 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import SearchBar from "../Components/SearchBar";
+import { BeatLoader } from "react-spinners";
+import useFetch from "../utils/Hooks/useFetch";
+import RecipeCard from "./RecipeCard";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
+  const [filterRecipes, setFilterRecipes] = useState([]);
   const [query, setQuery] = useState("Vegan");
   const [limit, setLimit] = useState(30);
-  const [loading, setLoading] = useState(false);
 
+  const { data, loading, error } = useFetch(
+    `https://dummyjson.com/recipes?limit=0`
+  );
+
+  useEffect(() => {
+    if (!data || !data.recipes) return;
+    setRecipes(data.recipes);
+    setFilterRecipes(data.recipes);
+  }, [data]);
   const handleInputChange = (e) => {
     setQuery(e.target.value);
-  }
+  };
 
   if (loading) {
-    return <Loading />;
+    return <BeatLoader color="#325cc7" />;
+  }
+  //Error Handling ui
+  if (error) {
+    return (
+      <div className="text-center mt-2 w-3 p-3 bg-red-800 opacity-5">
+        <p className="font-semibold text-red-600 text-2xl">{error}</p>
+      </div>
+    );
   }
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-center pt-10 pb-5 md:px-10">
         <form action="" className="w-full lg:w-2/4">
-         <SearchBar 
-         placeholder = "eg, Cake, Vegan, Panner"
-         handleInputChange={handleInputChange}
-         rightIcon={
-          <BiSearchAlt2  className="text-gray-600 text-2xl"/>
-         }
+          <SearchBar
+            placeholder="eg, Cake, Vegan, Panner"
+            handleInputChange={handleInputChange}
+            rightIcon={<BiSearchAlt2 className="text-gray-600 text-2xl" />}
           />
         </form>
       </div>
+      {filterRecipes?.length > 0 ? (
+        <>
+          <div className="w-full flex flex-wrap gap-10 px-0 lg:px-10 py-10">
+            {filterRecipes?.map((item, index) => {
+              return (<RecipeCard recipes={item} key={index} />
+              )
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="text-white w-full item-center justify-center py-10">
+          <p>No Recipe Found</p>
+        </div>
+      )}
     </div>
   );
 };
