@@ -21,12 +21,25 @@ const Recipes = () => {
     setFilterRecipes(data.recipes);
   }, [data]);
   const handleInputChange = (e) => {
-    setQuery(e.target.value);
-  };
+    const value = e.target.value;
+    setQuery(value);
 
-  if (loading) {
-    return <BeatLoader color="#325cc7" />;
-  }
+    if(!value){
+      setFilterRecipes(recipes);
+      return;
+    }
+    const filtered = recipes.filter((meal) =>
+    meal.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilterRecipes(filtered);
+  };
+  if (loading) return <BeatLoader color="#325cc7" />;
+  if (error)
+    return (
+      <div className="text-center mt-2 w-3 p-3 bg-red-800 opacity-5">
+        <p className="font-semibold text-red-600 text-2xl">{error}</p>
+      </div>
+    );
   //Error Handling ui
   if (error) {
     return (
@@ -48,7 +61,7 @@ const Recipes = () => {
       </div>
       {filterRecipes?.length > 0 ? (
         <>
-          <div className="w-full flex flex-wrap gap-10 px-0 lg:px-10 py-10">
+          <div className="w-full flex flex-wrap gap-10 px-0 lg:px-10 py-10 mx-auto">
             {filterRecipes?.map((item, index) => {
               return (<RecipeCard recipes={item} key={index} />
               )

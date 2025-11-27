@@ -9,7 +9,7 @@ const RecipeCard = (props) => {
     const { id, name, difficulty, cuisine,image, rating, mealType } = recipes;
 
   return (
-    <Link to={`/recipes/${id}`} className='w-full md:w-[300px]'>
+    <Link to={`/recipes/${id}`} className='w-full md:w-[250px]'>
 
     <div className='bg-gradient shadow w-full rounded-lg'>
         <img src={image} alt={name} className='rounded-lg h-[200px] md:h-[150px] w-full'/>
