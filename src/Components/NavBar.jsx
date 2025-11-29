@@ -22,12 +22,12 @@ const NavBar = () => {
           />
           Recipe<span>World</span>
         </Link>
-        <ul className="hidden md:flex text-white gap-6">
+        <ul className="hidden md:flex text-white gap-6 cursor-pointer">
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
           <li>
-            <NavLink to={"/recipes/:id"}>Explore Recipes</NavLink>
+            <NavLink to={"/recipes"}>Explore Recipes</NavLink>
           </li>
           <li>
             <NavLink to={"/favorites"}> Favorite</NavLink>
@@ -35,7 +35,7 @@ const NavBar = () => {
         </ul>
         <Button
           title="Sign in"
-          containerStyle='hidden md:block bg-transparent border border-white text-white hover:bg-white hover:text-slate-700 rounded-full min-w-[130px]'
+          containerStyle='hidden md:block bg-transparent border border-white text-white font-semibold hover:bg-white hover:text-slate-700 rounded-full min-w-[130px] cursor-pointer'
         />
         <button
           className="block md:hidden text-white text-xl"

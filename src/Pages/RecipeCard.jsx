@@ -9,15 +9,15 @@ const RecipeCard = (props) => {
     const { id, name, difficulty, cuisine,image, rating, mealType } = recipes;
 
   return (
-    <Link to={`/recipes/${id}`} className='w-full md:w-[250px]'>
+    <Link to={`/recipes/${id}`} className='w-full md:w-[200px]'>
 
-    <div className='bg-gradient shadow w-full rounded-lg'>
-        <img src={image} alt={name} className='rounded-lg h-[200px] md:h-[150px] w-full'/>
+    <div className='bg_gradient shadow w-full md:w-[250px] md:h-[300px] rounded-lg'>
+        <img src={image} alt={name} className='rounded-lg h-[400px] md:h-[150px] w-full object-cover'/>
         <div className="p-3">
           <p className="text-white font-semibold">
             {name}
           </p>
-          <div className="mt-2">
+          <div className="mt-2 flex flex-wrap">
             <span className="px-2 py-1 text-[12px] capitalize bg-[#0c452243] shadow-xl rounded-full mr-3 text-green-500">
               {cuisine}
             </span>

@@ -61,7 +61,7 @@ const Recipes = () => {
       </div>
       {filterRecipes?.length > 0 ? (
         <>
-          <div className="w-full flex flex-wrap gap-10 px-0 lg:px-10 py-10 mx-auto">
+          <div className="w-full flex flex-wrap items-center justify-center md:gap-18 px-0 lg:px-8 py-8">
             {filterRecipes?.map((item, index) => {
               return (<RecipeCard recipes={item} key={index} />
               )

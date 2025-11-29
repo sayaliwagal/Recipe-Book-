@@ -6,7 +6,7 @@ import RecipeDetail from "./Pages/RecipeDetail.jsx";
 
 const App = () => {
   return (
-    <div className="bg-gray-950">
+    <div className="bg-slate-950">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
