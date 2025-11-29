@@ -1,42 +1,67 @@
 import React from 'react';
-import { Link, Links } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import StarRating from '../Components/StarRating';
+import { getDifficultyColor } from '../utils/helper';
+import { LuClock12 } from 'react-icons/lu';
+import { LiaUserSolid } from "react-icons/lia";
+import Button from '../Components/Button.jsx';
 
 const RecipeCard = (props) => {
     const {recipes} = props;
-    console.log(props);
-    console.log(recipes);
-    const { id, name, difficulty, cuisine,image, rating, mealType } = recipes;
+    // console.log(props);
+    // console.log(recipes);
+    const { id, name, difficulty, cuisine,image, rating, mealType, prepTimeMinutes, servings } = recipes;
+     
+    const navigate = useNavigate();
 
+    const handleNavigate = () => {
+      navigate(`/recipes/${id}`);
+    }
   return (
-    <Link to={`/recipes/${id}`} className='w-full md:w-[200px]'>
 
-    <div className='bg_gradient shadow w-full md:w-[250px] md:h-[300px] rounded-lg'>
-        <img src={image} alt={name} className='rounded-lg h-[400px] md:h-[150px] w-full object-cover'/>
-        <div className="p-3">
-          <p className="text-white font-semibold">
+
+    <div className='bg_gradient shadow w-full max-w-[300px] rounded-lg flex flex-col'>
+        <img src={image} alt={name} className='rounded-t-lg h-48 md:h-52 w-full object-cover'/>
+        <div className="p-3 mt-4 flex flex-col gap-2 overflow-hidden ">
+          <p className="text-white font-semibold line-clamp-1">
             {name}
           </p>
-          <div className="mt-2 flex flex-wrap">
-            <span className="px-2 py-1 text-[12px] capitalize bg-[#0c452243] shadow-xl rounded-full mr-3 text-green-500">
+          <div className="flex gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="px-2 py-1 text-[12px] font-semibold capitalize bg-orange-600 shadow-xl rounded-full mr-3 mt-2 text-white">
               {cuisine}
             </span>
-            <span className="px-2 py-1 text-[12px] capitalize bg-[#0c452243] shadow-xl rounded-full mr-3 text-green-500">
-              {mealType}
+            <span className="px-2 py-1 text-[12px] font-semibold capitalize bg-purple-900 shadow-xl rounded-full mr-3 mt-2 text-white">
+              {mealType?.slice(0,1)}   {/* show only fist tag */}
             </span>
-            <span className="px-2 py-1 text-[12px] capitalize bg-[#0c452243] shadow-xl rounded-full mr-3 text-green-500">
+            <span className={`px-2 py-1 text-[12px] font-semibold capitalize shadow-xl rounded-full mr-3 mt-2 ${getDifficultyColor(difficulty)}`}>
               {difficulty}
             </span>
+          </div>
+          <div className='flex flex-col  mb-1  bg-black/5 p-3 rounded-lg'>
+            <p className='flex items-center gap-2 text-gray-200 text-sm font-medium'>
+              <LuClock12 className='text-green-400 text-lg' />
+              {prepTimeMinutes} mins
+              </p>
+            <p className='flex items-center gap-2 text-gray-200 text-sm font-medium'>
+              <LiaUserSolid className='text-blue-400 text-lg' /> 
+              {servings} serve
+              </p>
           </div>
           <div className="flex gap-2 font-semibold m-2">
               <span>
                 <StarRating rating={rating} />
               </span>
           </div>
+                <Button
+         title ="View Details"
+         handleClick= {handleNavigate}
+         containerStyle = "mt-3 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"      
+      />
         </div>
       
+
     </div>
-    </Link>
+
   )
 }
 
