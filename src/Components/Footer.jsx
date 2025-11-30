@@ -5,7 +5,7 @@ import Button from './Button.jsx'
 
 const Footer = () => {
   return (
-    <footer className='text-white py-20 bg_gradient'>
+    <footer className='text-white py-20 bg-black opacity-90'>
       <div className='container mx-auto px-20 lg:px-20 py-20 flex flex-col gap-10 md:flex-row justify-between border-t border-slate-800 '>
         <div className="flex">
           <p className="font-bold text-center">

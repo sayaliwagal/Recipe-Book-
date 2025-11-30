@@ -9,17 +9,15 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [filterRecipes, setFilterRecipes] = useState([]);
   const [query, setQuery] = useState("Vegan");
-  const [limit, setLimit] = useState(30);
 
-  const { data, loading, error } = useFetch(
-    `https://dummyjson.com/recipes?limit=0`
-  );
+  const { data, loading, error } = useFetch(`https://dummyjson.com/recipes?limit=0`);
 
   useEffect(() => {
     if (!data || !data.recipes) return;
     setRecipes(data.recipes);
     setFilterRecipes(data.recipes);
   }, [data]);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
@@ -33,21 +31,18 @@ const Recipes = () => {
     );
     setFilterRecipes(filtered);
   };
-  if (loading) return <BeatLoader color="#325cc7" />;
+  if (loading) return (
+  <div className="text-center my-10">
+    
+    <BeatLoader color="#325cc7" />;
+    </div>
+  );
   if (error)
     return (
       <div className="text-center mt-2 w-3 p-3 bg-red-800 opacity-5">
         <p className="font-semibold text-red-600 text-2xl">{error}</p>
       </div>
     );
-  //Error Handling ui
-  if (error) {
-    return (
-      <div className="text-center mt-2 w-3 p-3 bg-red-800 opacity-5">
-        <p className="font-semibold text-red-600 text-2xl">{error}</p>
-      </div>
-    );
-  }
   return (
     <div className="w-full">
       <div className="w-full flex items-center justify-center pt-10 pb-5 md:px-10">
