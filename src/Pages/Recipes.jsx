@@ -4,11 +4,18 @@ import SearchBar from "../Components/SearchBar";
 import { BeatLoader } from "react-spinners";
 import useFetch from "../utils/Hooks/useFetch";
 import RecipeCard from "./RecipeCard";
+import Pagination from "../Components/Pagination";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [filterRecipes, setFilterRecipes] = useState([]);
   const [query, setQuery] = useState("Vegan");
+  const [ currentPage, setCurrentPage ] = useState(1);
+  const recipesPerPage = 9;
+  const indexOfLast = currentPage * recipesPerPage;
+  const indexOfFirst = indexOfLast - recipesPerPage;
+  const currentRecipes = filterRecipes.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filterRecipes.length /recipesPerPage);
 
   const { data, loading, error } = useFetch(`https://dummyjson.com/recipes?limit=0`);
 
@@ -54,10 +61,10 @@ const Recipes = () => {
           />
         </form>
       </div>
-      {filterRecipes?.length > 0 ? (
+      {currentRecipes?.length > 0 ? (
         <>
           <div className="w-full flex flex-wrap items-center justify-center md:gap-18 px-0 lg:px-8 py-8">
-            {filterRecipes?.map((item, index) => {
+            {currentRecipes?.map((item, index) => {
               return (<RecipeCard recipes={item} key={index} />
               )
             })}
@@ -68,6 +75,14 @@ const Recipes = () => {
           <p>No Recipe Found</p>
         </div>
       )}
+      <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={(page) => {
+        setCurrentPage(page);
+        window.scrollTo({top: 0, behavior: "smooth"})
+      }}
+      />
     </div>
   );
 };
