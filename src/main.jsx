@@ -4,12 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
 import { FavoriteProvider } from "./Context/FavoriteContext.jsx";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <FavoriteProvider>
         <App />
+        <Toaster />
       </FavoriteProvider>
     </BrowserRouter>
   </StrictMode>

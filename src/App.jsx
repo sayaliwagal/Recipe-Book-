@@ -5,6 +5,7 @@ import Layout from "./Pages/Layout.jsx";
 import RecipeDetail from "./Pages/RecipeDetail.jsx";
 import Favorites from "./Pages/Favorites.jsx";
 import Explore from "./Pages/Explore.jsx";
+import AddRecipe from "./Pages/AddRecipe.jsx";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/exploreRecipes" element={<Explore />} />
           <Route path="recipes/:id" element={<RecipeDetail />} />
+          <Route path="/addRecipe" element={<AddRecipe />} />
         </Route>
       </Routes>
     </div>

@@ -1,0 +1,36 @@
+const initialRecipes =  [
+    {
+         id: 10001,
+    name: "Homemade Veg Pizza",
+    cuisine: "Italian",
+    difficulty: "Medium",
+    rating: 4.6,
+    mealType: ["Dinner"],
+    prepTimeMinutes: 25,
+    servings: 2,
+    image: "https://via.placeholder.com/400x250.png?text=Veg+Pizza",
+    ingredients: ["Pizza Base", "Cheese", "Veggies", "Sauce"],
+    instructions: ["Spread sauce", "Add toppings", "Bake at 180°C"],
+    caloriesPerServing: 350,
+    tags: ["Vegetarian", "Cheesy"],
+    reviewCount: 12,
+    },
+    {
+         id: 10002,
+    name: "Paneer Butter Masala",
+    cuisine: "Indian",
+    difficulty: "Hard",
+    rating: 4.8,
+    mealType: ["Lunch", "Dinner"],
+    prepTimeMinutes: 35,
+    servings: 4,
+    image: "https://via.placeholder.com/400x250.png?text=Paneer+Butter+Masala",
+    ingredients: ["Paneer", "Tomato", "Cream", "Spices"],
+    instructions: ["Cook gravy", "Add paneer", "Simmer & serve"],
+    caloriesPerServing: 420,
+    tags: ["Spicy", "Veg"],
+    reviewCount: 28,
+    },
+];
+
+export default initialRecipes;
