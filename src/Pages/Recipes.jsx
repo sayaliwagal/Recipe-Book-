@@ -28,6 +28,7 @@ const Recipes = () => {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setQuery(value);
+    setCurrentPage(1);
 
     if(!value){
       setFilterRecipes(recipes);
@@ -65,7 +66,7 @@ const Recipes = () => {
         <>
           <div className="w-full flex flex-wrap items-center justify-center md:gap-18 px-0 lg:px-8 py-8">
             {currentRecipes?.map((item, index) => {
-              return (<RecipeCard recipes={item} key={index} />
+              return (<RecipeCard recipe={item} key={index} />
               )
             })}
           </div>

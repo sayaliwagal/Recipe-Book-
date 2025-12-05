@@ -68,7 +68,7 @@ const Explore = () => {
         ): filterRecipes.length > 0 ? (
             filterRecipes.map((recipe, index) => {
                 return (
-                    <RecipeCard key={index} recipes={recipe} />
+                    <RecipeCard key={index} recipe={recipe} />
                 )
             })
         ) : (

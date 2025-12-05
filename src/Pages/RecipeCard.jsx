@@ -8,10 +8,9 @@ import Button from '../Components/Button.jsx';
 import FavoriteButton from '../Components/FavoriteButton.jsx';
 
 const RecipeCard = (props) => {
-    const {recipes} = props;
-    // console.log(props);
-    // console.log(recipes);
-    const { id, name, difficulty, cuisine,image, rating, mealType, prepTimeMinutes, servings } = recipes;
+    const {recipe} = props;
+    if(!recipe) return null;
+    const { id, name, difficulty, cuisine,image, rating, mealType, prepTimeMinutes, servings } = recipe;
      
     const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ const RecipeCard = (props) => {
     <div className='bg_gradient shadow w-full max-w-[300px] rounded-lg flex flex-col'>
       <div className="relative">
         <img src={image} alt={name} className='rounded-t-lg h-48 md:h-52 w-full object-cover'/>
-        <FavoriteButton recipe={recipes} />
+        <FavoriteButton recipe={recipe} />
       </div>
         <div className="p-3 mt-4 flex flex-col gap-2 overflow-hidden ">
           <p className="text-white font-semibold line-clamp-1">

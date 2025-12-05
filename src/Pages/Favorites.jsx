@@ -19,7 +19,7 @@ const Favorites = () => {
   return (
     <div className="px-4 py-10 flex flex-wrap gap-10 justify-center">
       {favorites.map((recipe, id) => {
-        return <RecipeCard key={id} recipes={recipe} />;
+        return <RecipeCard key={id} recipe={recipe} />;
       })}
     </div>
   );

@@ -3,14 +3,14 @@ import { createContext, useEffect, useState } from "react";
 const FavoriteContext = createContext();
 
 export const FavoriteProvider = ({ children }) => {
-    const [ favorites, setFavorite ] = useState([]);
-
-    //Load fron localStorage
-
-    useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem("favorites")) || [];
-        setFavorite(stored);
-    }, []);
+    const [ favorites, setFavorite ] = useState(()=> {
+    try{
+            const stored = localStorage.getItem("favorites");
+            return stored ? JSON.parse(stored) : [];
+        }catch {
+            return [];
+        }
+        });
 
     //Save to localStorage
     useEffect(() => {
@@ -18,19 +18,14 @@ export const FavoriteProvider = ({ children }) => {
     }, [favorites]);
 
     const toggleFavorite = (recipe) => {
-
-        const exists = favorites.find((item) => {
-            return item.id === recipe.id;
-        });
-        if(exists){
-            setFavorite(favorites.filter((item) => {
-                return item.id !== recipe.id
-            }));
-        }else{
-            setFavorite([...favorites, recipe]);
-        }
+ setFavorite((prev) => {
+      const exists = prev.some((item) => item.id === recipe.id);
+      return exists
+        ? prev.filter((item) => item.id !== recipe.id)
+        : [...prev, recipe];
+    });
     };
-    
+
     const isFavorite = (id) => {
         return favorites.some((item) => item.id === id );
     };
