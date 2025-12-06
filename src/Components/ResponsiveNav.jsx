@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "./Button";
 
-const ResponsiveNav = ({ open, }) => {
+const ResponsiveNav = ({ open }) => {
   return (
     <div
       className={`${open ? "flex" : "hidden"}
@@ -13,10 +13,10 @@ const ResponsiveNav = ({ open, }) => {
       <NavLink to={"/recipes/:id"}>Explore Recipes</NavLink>
 
       <NavLink to={"/favorites"}> Favorite</NavLink>
-       <Button
-          title="Sign in"
-          containerStyle=' w-50 bg-transparent border border-white text-white hover:bg-white hover:text-slate-700 rounded-full min-w-[130px]'
-        />
+      <Button
+        title="Sign in"
+        containerStyle=" w-50 bg-transparent border border-white text-white hover:bg-white hover:text-slate-700 rounded-full min-w-[130px]"
+      />
     </div>
   );
 };

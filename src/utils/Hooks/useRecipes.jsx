@@ -1,41 +1,28 @@
-import React, { useEffect } from 'react'
-import initialRecipes from '../../data/initialRecipes';
+import React, { useEffect, useMemo, useState } from "react";
 
-const LOCAL_KEY = "myRecipes";
+const LOCAL_KEY = "useRecipes";
 
 const useRecipes = (apiRecipes = []) => {
+  const [localRecipes, setLocalRecipes] = useState(
+    JSON.parse(localStorage.getItem(LOCAL_KEY)) || []
+  );
 
-    const [ localRecipes, setLocalRecipes ] = useState([]);
-    const [ combinedRecipes, setCombinedRecipes ] = useState([]);
+  //Add recipe to LocalStorage
+  const addRecipe = (recipe) => {
+    const newRecipe = {
+        ...recipe,
+        id: recipe.id || Date.now(), // Assign unique id for local recipes
+    }
+    const updated = [...localRecipes, recipe];
+    setLocalRecipes(updated);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(updated));
+  };
 
-    // Load LocalStorage data once
+  const allRecipes = useMemo(() => {
+    return [...apiRecipes, ...localRecipes];
+  }, [addRecipe, localRecipes]);
 
-    useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
-        
+  return { allRecipes, addRecipe };
+};
 
-        //Load initial data if localStorage is empty 
-        if(stored.length === 0){
-            localStorage.setItem(LOCAL_KEY, JSON.stringify(initialRecipes));
-            setLocalRecipes(initialRecipes)
-        }else{
-            setLocalRecipes(stored);
-        }
-    }, []);
-
-    // Merage API + Local storage whenever either changes
-    useEffect(() => {
-        setCombinedRecipes([...localRecipes, ...apiRecipes]);
-    }, [localRecipes, apiRecipes]);
-
-    //Add recipe to LocalStorage
-    const addRecipe = (recipe) => {
-        const updated = [...localRecipes, recipe];
-        setLocalRecipes(updated);
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(updated));
-    };
-
-  return { combinedRecipes, addRecipe };
-}
-
-export default useRecipes
+export default useRecipes;

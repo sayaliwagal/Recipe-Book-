@@ -5,46 +5,48 @@ import { BeatLoader } from "react-spinners";
 import useFetch from "../utils/Hooks/useFetch";
 import RecipeCard from "./RecipeCard";
 import Pagination from "../Components/Pagination";
+import useRecipes from "../utils/Hooks/useRecipes";
 
 const Recipes = () => {
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
   const [filterRecipes, setFilterRecipes] = useState([]);
   const [query, setQuery] = useState("Vegan");
-  const [ currentPage, setCurrentPage ] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 9;
   const indexOfLast = currentPage * recipesPerPage;
   const indexOfFirst = indexOfLast - recipesPerPage;
-  const currentRecipes = filterRecipes.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(filterRecipes.length /recipesPerPage);
+  const currentRecipes = (filterRecipes || []).slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil((filterRecipes?.length || 0) / recipesPerPage);
 
-  const { data, loading, error } = useFetch(`https://dummyjson.com/recipes?limit=0`);
+  const { data, loading, error } = useFetch(
+    `https://dummyjson.com/recipes?limit=0`
+  );
+  const { allRecipes } = useRecipes(data?.recipes || []);
 
   useEffect(() => {
-    if (!data || !data.recipes) return;
-    setRecipes(data.recipes);
-    setFilterRecipes(data.recipes);
+    if (allRecipes && allRecipes.length > 0) setFilterRecipes(allRecipes);
   }, [data]);
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     setQuery(value);
     setCurrentPage(1);
 
-    if(!value){
-      setFilterRecipes(recipes);
+    if (!value) {
+      setFilterRecipes(allRecipes);
       return;
     }
-    const filtered = recipes.filter((meal) =>
-    meal.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = allRecipes.filter((meal) =>
+      meal.name.toLowerCase().includes(value)
     );
     setFilterRecipes(filtered);
   };
-  if (loading) return (
-  <div className="text-center my-10">
-    
-    <BeatLoader color="#325cc7" />;
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="text-center my-10">
+        <BeatLoader color="#325cc7" />;
+      </div>
+    );
   if (error)
     return (
       <div className="text-center mt-2 w-3 p-3 bg-red-800 opacity-5">
@@ -66,8 +68,7 @@ const Recipes = () => {
         <>
           <div className="w-full flex flex-wrap items-center justify-center md:gap-18 px-0 lg:px-8 py-8">
             {currentRecipes?.map((item, index) => {
-              return (<RecipeCard recipe={item} key={index} />
-              )
+              return <RecipeCard recipe={item} key={index} />;
             })}
           </div>
         </>
@@ -77,12 +78,12 @@ const Recipes = () => {
         </div>
       )}
       <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
-      onPageChange={(page) => {
-        setCurrentPage(page);
-        window.scrollTo({top: 0, behavior: "smooth"})
-      }}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => {
+          setCurrentPage(page);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
       />
     </div>
   );
