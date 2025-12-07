@@ -5,11 +5,12 @@ import { getDifficultyColor } from "../utils/helper";
 import { LuClock12 } from "react-icons/lu";
 import { LiaUserSolid } from "react-icons/lia";
 import Button from "../Components/Button.jsx";
+
 import FavoriteButton from "../Components/FavoriteButton.jsx";
 
 const RecipeCard = (props) => {
+  const placeholderImg = "/placeholder.pg"
   const { recipe } = props;
-  const fallbackImage = "https://via.placeholder.com/300x200?text=No+Image+Found"; // default image
   if (!recipe) return null;
   const {
     id,
@@ -32,10 +33,13 @@ const RecipeCard = (props) => {
     <div className="bg_gradient shadow w-full max-w-[300px] rounded-lg flex flex-col">
       <div className="relative">
         <img
-          src={image || fallbackImage}
+          src={image && (image.startsWith("data:") || image.startsWith("http"))
+            ? image
+            : placeholderImg
+          }
           alt={name || "Recipe Image"}
           className="rounded-t-lg h-48 md:h-52 w-full object-cover"
-          onError={(e) => (e.target.src = fallbackImage)}
+   
         />
         <FavoriteButton recipe={recipe} />
       </div>

@@ -23,7 +23,7 @@ const NavBar = () => {
           />
           Recipe<span>World</span>
         </Link>
-        <ul className="hidden md:flex text-white gap-6 cursor-pointer">
+        <ul className="hidden lg:flex text-white gap-6 cursor-pointer">
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
@@ -36,16 +36,18 @@ const NavBar = () => {
         </ul>
         <NavLink
           to={"/addRecipe"}
-          className="bg-green-600 rounded-lg hover:bg-green-700"
+          className="hidden lg:block bg-green-600 rounded-lg hover:bg-green-700  p-2 text-gray-100 font-semibold "
         >
-          <FaPlus size={20} /> Add Recipe
+          <div className="flex items-center justify-center">
+          <FaPlus size={20} /> <span className="ml-3">Add Recipe</span>
+          </div>
         </NavLink>
         <Button
           title="Sign in"
-          containerStyle="hidden md:block bg-transparent border border-white text-white font-semibold hover:bg-white hover:text-slate-700 rounded-full min-w-[130px] cursor-pointer"
+          containerStyle="hidden lg:block bg-transparent border border-white text-white font-semibold hover:bg-white hover:text-slate-700 rounded-full min-w-[130px] cursor-pointer"
         />
         <button
-          className="block md:hidden text-white text-xl"
+          className="block lg:hidden text-white text-xl"
           onClick={() => setOpen((prev) => !prev)}
         >
           {open ? <AiOutlineClose /> : <HiMenuAlt3 />}

@@ -3,12 +3,11 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useRecipes from "../utils/Hooks/useRecipes";
 import { convertToBase64 } from "../utils/helper.js";
-
+import MealSelect from "../Components/MealSelect.jsx";
 const AddRecipe = () => {
   const { addRecipe } = useRecipes();
   const navigate = useNavigate();
-  const mealOptions = ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"];
-  const [selectedMealTypes, setSelectedMealtypes] = useState([]);
+  const [mealTypes, setMealTypes] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     cuisine: "",
@@ -26,14 +25,6 @@ const AddRecipe = () => {
 
   const [imagePreview, setImagePreview] = useState(null);
 
-  //Handle multiSeletct
-  const handleMultiSelect = (e) => {
-    const value = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    setFormData({ ...formData, mealType: value });
-  };
   //Handle text field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +37,8 @@ const AddRecipe = () => {
     if (!file) return;
  try{
     const  base64 = await convertToBase64(file);
-    setImagePreview(imgURL);
-    setFormData({ ...formData, image: imgURL });
+    setImagePreview(base64);
+    setFormData({ ...formData, image: base64 });
  }catch(err){
     console.error("Error converting file", err);
  }
@@ -116,21 +107,8 @@ const AddRecipe = () => {
           <option value="Hard">Hard</option>
         </select>
         {/* Mealype Multi Select */}
-        <select
-          name="mealType"
-          multiple
-          value={formData.mealType}
-          className="w-full p-3 rounded bg-gray-800 outline-none"
-          onChange={handleMultiSelect}
-        >
-          {mealOptions.map((meal, i) => {
-            return (
-              <option key={i} value={meal}>
-                {meal}
-              </option>
-            );
-          })}
-        </select>
+       <MealSelect mealType={mealTypes} setMealType={setMealTypes} />
+
         <p className="text-xs text-gray-400">(Hold Ctrl to select multiple)</p>
         {/* Rating */}
         <input

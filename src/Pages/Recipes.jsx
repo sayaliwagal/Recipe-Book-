@@ -37,7 +37,8 @@ const Recipes = () => {
       return;
     }
     const filtered = allRecipes.filter((meal) =>
-      meal.name.toLowerCase().includes(value)
+      meal.name.toLowerCase().includes(value) ||
+    meal.ingredients.join(" ").toLocaleLowerCase().includes(value)
     );
     setFilterRecipes(filtered);
   };
@@ -55,7 +56,7 @@ const Recipes = () => {
     );
   return (
     <div className="w-full">
-      <div className="w-full flex items-center justify-center pt-10 pb-5 md:px-10">
+      <div className="w-full flex items-center justify-center pt-10 pb-5 md:px-8">
         <form action="" className="w-full lg:w-2/4">
           <SearchBar
             placeholder="eg, Cake, Vegan, Panner"
@@ -66,7 +67,7 @@ const Recipes = () => {
       </div>
       {currentRecipes?.length > 0 ? (
         <>
-          <div className="w-full flex flex-wrap items-center justify-center md:gap-18 px-0 lg:px-8 py-8">
+          <div className="w-full flex flex-wrap items-center justify-center md:gap-12 px-0 lg:px-8 py-8">
             {currentRecipes?.map((item, index) => {
               return <RecipeCard recipe={item} key={index} />;
             })}
