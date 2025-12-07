@@ -1,6 +1,5 @@
 import React from 'react';
 import Select from 'react-select';
-import { MultiValue } from 'react-select/animated';
 
 const options = [
     { value:"Breakfast", label: "Breakfast" },

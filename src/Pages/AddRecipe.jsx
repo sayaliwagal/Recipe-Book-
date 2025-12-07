@@ -12,7 +12,6 @@ const AddRecipe = () => {
     name: "",
     cuisine: "",
     difficulty: "",
-    mealType: [],
     servings: 1,
     prepTimeMinutes: 0,
     ingredients: "",
@@ -50,7 +49,7 @@ const AddRecipe = () => {
     if (!formData.name) return toast.error("Recipe Name is Required! ");
     if (!formData.ingredients) return toast.error("Ingredients required! ");
     if (!formData.instructions) return toast.error("Instructions required! ");
-    if (!formData.mealType.length)
+    if (!mealTypes.length)
       return toast.error("Select at least one meal type! ");
     if (!formData.rating) return toast.error("Rating is required!");
 
@@ -58,6 +57,7 @@ const AddRecipe = () => {
       ...formData,
       id: Date.now(),
       // Convert fields into arrays properly
+       mealType: mealTypes,
       ingredients: formData.ingredients.split(",").map((i) => i.trim()),
       instructions: formData.instructions.split(",").map((i) => i.trim()),
       tags: formData.tags.split(",").map((i) => i.trim()),
