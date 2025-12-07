@@ -7,7 +7,7 @@ import MealSelect from "../Components/MealSelect.jsx";
 const AddRecipe = () => {
   const { addRecipe } = useRecipes();
   const navigate = useNavigate();
-  const [mealTypes, setMealTypes] = useState("");
+  const [mealTypes, setMealTypes] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     cuisine: "",
