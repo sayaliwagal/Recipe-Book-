@@ -5,7 +5,7 @@ Allows users to add their own recipes (with image, ingredients, instructions, ta
 
 ## 🔍 Demo / Live Site  
 _If deployed (e.g. on Netlify), put the link here_  
-[Live Demo](https://your-netlify-url.netlify.app)  
+[Live Demo](https://um-recipebook.netlify.app/)  
 
 ---
 
